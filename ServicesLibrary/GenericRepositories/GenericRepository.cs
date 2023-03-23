@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ServicesLibrary.GenericRepository
+namespace ServicesLibrary.GenericRepositories
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {

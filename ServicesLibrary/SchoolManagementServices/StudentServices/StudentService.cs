@@ -1,6 +1,6 @@
 ﻿using Entities.DeviceRegistrationEntity;
 using Entities.SchoolManagement;
-using ServicesLibrary.GenericRepository;
+using ServicesLibrary.GenericRepositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +12,7 @@ namespace ServicesLibrary.SchoolManagementServices.StudentServices
     public class StudentService : IStudentService
     {
         private readonly WebApiDatabase webApiDatabase;
-        private readonly GenericRepository.IGenericRepository<Student> genericRepository;
+        private readonly IGenericRepository<Student> genericRepository;
 
         public StudentService(WebApiDatabase webApiDatabase,IGenericRepository<Student> genericRepository)
         {

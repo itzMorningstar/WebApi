@@ -1,9 +1,11 @@
+using AutoMapper;
 using Entities.DeviceRegistrationEntity;
 using Google;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using ServicesLibrary.ExtensionMethod;
 using System.Web.Http;
+using WebApi.HelpingMethods;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,14 @@ builder.Services.AddDbContext<WebApiDatabase>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddControllers();
 builder.Services.AddCors();
+
+//automapper configuration:
+var mapperConfig = new MapperConfiguration(mc =>
+{
+    mc.AddProfile(new MappingProfile());
+});
+IMapper mapper = mapperConfig.CreateMapper();
+builder.Services.AddSingleton(mapper);
 
 builder.Services.AddCors(options =>
 {
@@ -33,7 +43,7 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 builder.Services.ImplementPersistence(builder.Configuration);
-
+builder.Services.SchoolServicesProvider();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

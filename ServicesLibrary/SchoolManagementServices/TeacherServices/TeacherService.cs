@@ -1,6 +1,6 @@
 ﻿using Entities.DeviceRegistrationEntity;
 using Entities.SchoolManagement;
-using ServicesLibrary.GenericRepository;
+using ServicesLibrary.GenericRepositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations.Operations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using ServicesLibrary.DeviceManagerServices;
+using ServicesLibrary.GenericRepositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +20,7 @@ namespace ServicesLibrary.ExtensionMethod
                 b => b.MigrationsAssembly(typeof(WebApiDatabase).Assembly.FullName)), ServiceLifetime.Transient);
 
             services.AddScoped<IDeviceManager, DeviceManager>();
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             //services.AddScoped<IDeviceManager>(provider => provider.GetService<DeviceManager>());
 
             return services;
