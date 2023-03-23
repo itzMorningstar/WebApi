@@ -11,6 +11,10 @@ namespace WebApi.HelpingMethods
         public MappingProfile()
         {
             CreateMap<Student, StudentDto>();
+            CreateMap<Teacher, TeacherDto>();
+            CreateMap<Enrollment, EnrollmentDto>();
+            CreateMap<Classroom, ClassroomDto>();
+            CreateMap<Section, SectionDto>();
         }
     }
 }

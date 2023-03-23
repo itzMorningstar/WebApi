@@ -7,6 +7,7 @@ using System.Resources;
 using System.Web.Http;
 using WebApi.Dto_s;
 using WebApi.Models.Response;
+using HttpGetAttribute = Microsoft.AspNetCore.Mvc.HttpGetAttribute;
 using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
 
 namespace WebApi.Controllers
@@ -14,7 +15,7 @@ namespace WebApi.Controllers
 
     [Route("schoolManagement")]
     [ApiController]
-    public class SchoolManagmentController : ApiController
+    public class SchoolManagmentController : Controller
     {
         private readonly IStudentService studentService;
         private readonly ITeacherService teacherService;
@@ -28,15 +29,19 @@ namespace WebApi.Controllers
             this.enrollmentService = enrollmentService;
             this.mapper = mapper;
         }
-        public IActionResult GetStudents()
+
+        [HttpGet]
+        [Route("getstudents")]
+
+        public async Task<IActionResult> GetStudents()
         {
             var result = studentService.GetAllStudents();
-            if (!result.Any())
-                return (IActionResult)BadRequest();
-            var students = mapper.Map<StudentDto>(result);
+            if (!result.Result.Any())
+                return BadRequest();
+            var students = mapper.Map<List<StudentDto>>(result.Result.ToList());
             var response = new ResponseModel();
             response.Data = students;
-            return (IActionResult)Ok(response);
+            return Ok(response);
         }
     }
 }

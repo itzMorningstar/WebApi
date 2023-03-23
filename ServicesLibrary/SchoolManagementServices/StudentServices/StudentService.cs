@@ -29,11 +29,6 @@ namespace ServicesLibrary.SchoolManagementServices.StudentServices
             genericRepository.Delete(id);
         }
 
-        public IEnumerable<Student> GetAllStudents()
-        {
-            return genericRepository.GetAll();
-                
-        }
 
         public Student GetStudentById(int id)
         {
@@ -43,6 +38,11 @@ namespace ServicesLibrary.SchoolManagementServices.StudentServices
         public void UpdateStudent(Student student)
         {
             genericRepository.Update(student);
+        }
+
+        Task<IEnumerable<Student>> IStudentService.GetAllStudents()
+        {
+            return Task.FromResult(genericRepository.GetAll());
         }
     }
 }
