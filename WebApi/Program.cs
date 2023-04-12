@@ -1,9 +1,11 @@
 using AutoMapper;
 using Entities.DeviceRegistrationEntity;
 using Google;
+using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using ServicesLibrary.ExtensionMethod;
+using System.Reflection;
 using System.Web.Http;
 using WebApi.HelpingMethods;
 
@@ -39,11 +41,19 @@ builder.Services.AddCors(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Web Api's", Version = "v1" });               
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Web Api's", Version = "v1" });
+
+    // Add support for uploading images
+    //c.OperationFilter<AddFileParamTypesOperationFilter>();
+
 });
 
 builder.Services.ImplementPersistence(builder.Configuration);
 builder.Services.SchoolServicesProvider();
+
+
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

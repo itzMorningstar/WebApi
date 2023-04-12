@@ -13,6 +13,7 @@ namespace Entities.SchoolManagement
         public string Email { get; set; }
         public string Phone { get; set; }
         public int GradeLevel { get; set; }
+        public string ProfilePicturePath { get; set; }
         public ICollection<Enrollment> Enrollments { get; set; }
     }    
 }

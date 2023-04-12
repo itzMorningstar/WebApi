@@ -9,6 +9,7 @@ namespace WebApi.Dto_s
         public string Email { get; set; }
         public string Phone { get; set; }
         public int GradeLevel { get; set; }
+        public string? ProfilePicturePath { get; set; }
         public ICollection<EnrollmentDto> Enrollments { get; set; }
     }
 }

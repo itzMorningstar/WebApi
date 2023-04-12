@@ -3,6 +3,7 @@ using Entities.SchoolManagement;
 using System;
 using System.Runtime.CompilerServices;
 using WebApi.Dto_s;
+using WebApi.Models.SchoolManagment;
 
 namespace WebApi.HelpingMethods
 {
@@ -15,6 +16,10 @@ namespace WebApi.HelpingMethods
             CreateMap<Enrollment, EnrollmentDto>();
             CreateMap<Classroom, ClassroomDto>();
             CreateMap<Section, SectionDto>();
+
+            CreateMap<AddStudentModel, Student>()
+                .ForMember(dest => dest.ProfilePicturePath, opt => opt.Ignore());
+
         }
     }
 }
