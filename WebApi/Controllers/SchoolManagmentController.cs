@@ -54,6 +54,7 @@ namespace WebApi.Controllers
         [HttpPost]
         [Route("addstudent")]
 
+        // Have to add this FromForm otherWise the swagger doesnt show the input element and also swashbuck asp.net core package as well.
         public async Task<ActionResult> AddStudent([FromForm]AddStudentModel studentModel)
         {
             if (!ModelState.IsValid)
@@ -88,20 +89,29 @@ namespace WebApi.Controllers
         #region Private_Funtions
         private async Task<string?> SaveProfilePictureAsync <T>(T model, string folderName)
         {
-            IFormFile profilePic = model.GetType().GetProperty("ProfilePicture")?.GetValue(model) as IFormFile;
+            if (model == null)            
+               return null;
+            
+            var profilePicProperty = model.GetType().GetProperty("ProfilePicture");
+            if (profilePicProperty == null) return null;
+
+            IFormFile? profilePic = profilePicProperty.GetValue(model) as IFormFile;
             if (profilePic == null) return null;
 
-            //if (!IsImageFile(profilePic))
-            //{
-            //    throw new Exception("The uploaded file is not a valid image file.");
-            //}
+            if (!IsImageFile(profilePic))
+            {
+                throw new Exception("The uploaded file is not a valid image file.");
+            }
 
-            var username = model.GetType().GetProperty("Name").GetValue(model);
+            var usernameProperty = model.GetType().GetProperty("Name");
+            if (usernameProperty == null) return null;
+
+            string? username = usernameProperty.GetValue(model) as string;
             if (username == null) return null;
 
             var fileName = Guid.NewGuid().ToString() + Path.GetExtension(profilePic.FileName);
 
-            var folderPath = Path.Combine(folderName, username.ToString());
+            var folderPath = Path.Combine(folderName, username);
 
             var completePath =  Path.Combine(webHostEnvironment.ContentRootPath +"/"+ folderPath);
             if (!Directory.Exists(completePath))
@@ -112,7 +122,7 @@ namespace WebApi.Controllers
             var filePath = Path.Combine(completePath, fileName);
             using (var stream = new FileStream(filePath, FileMode.Create))
             {
-                profilePic.CopyToAsync(stream);
+              await profilePic.CopyToAsync(stream);
             }
 
             return Path.Combine(folderPath, fileName);
