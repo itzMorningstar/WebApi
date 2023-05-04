@@ -1,5 +1,4 @@
 ﻿using Entities.DeviceRegistrationEntity;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ServicesLibrary;
 using WebApi.Dto_s;
