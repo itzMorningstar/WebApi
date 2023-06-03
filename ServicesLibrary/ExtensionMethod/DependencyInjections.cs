@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations.Operations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ServicesLibrary.AccountServices;
+using ServicesLibrary.ActivityLogging;
 using ServicesLibrary.GenericRepositories;
 using System;
 using System.Collections.Generic;
@@ -21,6 +23,8 @@ namespace ServicesLibrary.ExtensionMethod
 
             services.AddScoped<IDeviceManager, DeviceManager>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped<IActivityLogService, ActivityLogService>();
+            services.AddScoped<IAccountService, AccountService>();
             //services.AddScoped<IDeviceManager>(provider => provider.GetService<DeviceManager>());
 
             return services;

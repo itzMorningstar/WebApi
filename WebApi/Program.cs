@@ -3,6 +3,7 @@ using Entities.DeviceRegistrationEntity;
 using Google;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using ServicesLibrary.ExtensionMethod;
 using System.Reflection;
@@ -25,13 +26,16 @@ var mapperConfig = new MapperConfiguration(mc =>
 });
 IMapper mapper = mapperConfig.CreateMapper();
 builder.Services.AddSingleton(mapper);
+builder.Services.AddScoped<ApiKeyAuthorizationFilter>();
+builder.Services.AddScoped<IApiKeyValidator, ApiKeyValidator>();
+builder.Services.AddMemoryCache();
 
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: "AllowOrigin",
         builder =>
         {
-            builder.WithOrigins("https://localhost:7153", "https://localhost:44302")
+            builder.WithOrigins("https://localhost:7153", "http://localhost:4200")
                                 .AllowAnyHeader()
                                 .AllowAnyMethod();
         });
@@ -43,13 +47,37 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Web Api's", Version = "v1" });
 
+    c.AddSecurityDefinition("ApiKey", new OpenApiSecurityScheme
+    {
+        Description = "API key needed to access the endpoints. Enter the API key in the format 'Bearer {your API key}'",
+        Name = "X-API-Key",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey
+    });
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "ApiKey" // Update the ID to match the security definition ID
+                }
+            },
+            new List<string>()
+        }
+    });
+
     // Add support for uploading images
     //c.OperationFilter<AddFileParamTypesOperationFilter>();
-
 });
+
 
 builder.Services.ImplementPersistence(builder.Configuration);
 builder.Services.SchoolServicesProvider();
+ builder.Services.EmployeeServiceProvider();
 
 
 
@@ -61,6 +89,11 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "Your API V1");
+        options.RoutePrefix = "swagger";
+    });
 }
 app.UseHttpsRedirection();
 app.UseCors();

@@ -40,6 +40,7 @@ namespace WebApi.Controllers
 
         [HttpGet]
         [Route("getstudents")]
+        [ApiKey]
         public async Task<IActionResult> GetStudents()
         {
             var result = await studentService.GetAllStudents();

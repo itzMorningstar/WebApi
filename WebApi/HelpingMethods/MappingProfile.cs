@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Entities.EmployeesEntities;
 using Entities.SchoolManagement;
 using System;
 using System.Runtime.CompilerServices;
@@ -20,6 +21,8 @@ namespace WebApi.HelpingMethods
             CreateMap<AddStudentModel, Student>()
                 .ForMember(dest => dest.ProfilePicturePath, opt => opt.Ignore());
 
+            CreateMap<Employee, EmployeeDto>()
+                .ForMember(dest => dest.Sallery, opt => opt.MapFrom(src => src.Sallery.SalleryAmount));           
         }
     }
 }

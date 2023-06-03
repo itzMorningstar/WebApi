@@ -1,4 +1,7 @@
-﻿using Entities.SchoolManagement;
+﻿using Entities.Accounts;
+using Entities.ActivityLogging;
+using Entities.EmployeesEntities;
+using Entities.SchoolManagement;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -19,6 +22,9 @@ namespace Entities.DeviceRegistrationEntity
         public DbSet<Teacher> Teachers{ get; set; }
         public DbSet<Section> Sections{ get; set; }
         public DbSet<Enrollment> Enrollments{ get; set; }
-
+        public DbSet<Employee> Employees{ get; set; }
+        public DbSet<ActivityLog> ActivityLogs{ get; set; }
+        public DbSet<ActivityType> ActivityType{ get; set; }
+        public DbSet<Account> Accounts{ get; set; }
     }
 }
