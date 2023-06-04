@@ -68,16 +68,10 @@ namespace WebApi.Controllers
             employeeService.Add(employee);
             employeeService.AddSallery(new Sallery { EmployeeId = employee.Id, SalleryAmount = employeeModel.SalleryAmount, CreatedOn = DateTime.Now, UpdatedOn = DateTime.Now });
             var account = accountService.GetCachedAccount(Request.Headers[ApplicationConstants.ApiKeyHeaderName]);
+            var desc = $"New Employee ({employee.FirstName + " " + employee.LastName})Added for {employeeModel.SalleryAmount} on {employee.CreatedOn}";
 
-            activityLogService.Add(new ActivityLog { 
-                Description = $"New Employee ({employee.FirstName +" " + employee.LastName})Added for {employeeModel.SalleryAmount} on {employee.CreatedOn}",
-                Timestamp = DateTime.Now,
-                IPAddress = HttpContext.Connection.RemoteIpAddress.ToString(),
-                AccountGuid = account.AccountGuid,
-                Username = account.Username,
-                UserAgent = Request.Headers["User-Agent"],
-                TypeId = 5
-            });
+            activityLogService.Add(desc, 5, account.Username, account.AccountGuid.ToString(), Request);
+            
             return CreatedAtAction(nameof(AddEmployee), new { id = employee.Id }, employee);
         }
     }
