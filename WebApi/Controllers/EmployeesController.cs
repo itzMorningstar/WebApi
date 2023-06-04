@@ -70,7 +70,7 @@ namespace WebApi.Controllers
             var account = accountService.GetCachedAccount(Request.Headers[ApplicationConstants.ApiKeyHeaderName]);
 
             activityLogService.Add(new ActivityLog { 
-                Description = $"New Employee (${employee.FirstName + employee.LastName})Added",
+                Description = $"New Employee ({employee.FirstName +" " + employee.LastName})Added for {employeeModel.SalleryAmount} on {employee.CreatedOn}",
                 Timestamp = DateTime.Now,
                 IPAddress = HttpContext.Connection.RemoteIpAddress.ToString(),
                 AccountGuid = account.AccountGuid,
@@ -78,7 +78,7 @@ namespace WebApi.Controllers
                 UserAgent = Request.Headers["User-Agent"],
                 TypeId = 5
             });
-            return Ok();
+            return CreatedAtAction(nameof(AddEmployee), new { id = employee.Id }, employee);
         }
     }
 }

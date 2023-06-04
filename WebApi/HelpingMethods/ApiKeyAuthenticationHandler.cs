@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Caching.Memory;
+using ServicesLibrary.AccountServices;
 
 public class ApiKeyAttribute : ServiceFilterAttribute
 {
@@ -25,54 +26,44 @@ public class ApiKeyAuthorizationFilter : IAuthorizationFilter
         _apiKeyValidator = apiKeyValidator;
     }
 
-    public void OnAuthorization(AuthorizationFilterContext context)
+    public async void OnAuthorization(AuthorizationFilterContext context)
     {
         string apiKey = context.HttpContext.Request.Headers[ApplicationConstants.ApiKeyHeaderName];
 
-        if (!_apiKeyValidator.IsValid(apiKey))
+        if (string.IsNullOrEmpty(apiKey))
         {
-            context.Result = new UnauthorizedResult();
+            context.Result = new UnauthorizedObjectResult("API Key is missing");
+            return;
+        }
+
+        if (!_apiKeyValidator.IsValid(apiKey,context.HttpContext.Request))
+        {
+            context.Result = new UnauthorizedObjectResult("API Key is missing");
         }
     }
 }
 public class ApiKeyValidator : IApiKeyValidator
 {
-    private readonly WebApiDatabase webApiDatabase;
-    private readonly IMemoryCache memoryCache;
+    private readonly IAccountService accountService;
 
-    public ApiKeyValidator(WebApiDatabase webApiDatabase, IMemoryCache memoryCache)
+    public ApiKeyValidator(IAccountService accountService)
     {
-        this.webApiDatabase = webApiDatabase;
-        this.memoryCache = memoryCache;
+        this.accountService = accountService;
     }
 
-    public bool IsValid(string apiKey)
+    public bool IsValid(string apiKey, HttpRequest httpRequest)
     {
         if (string.IsNullOrEmpty(apiKey))
             return false;
 
-        // Check if the account is already in the cache
-        if (memoryCache.TryGetValue(apiKey, out Account account))
-        {
-            // Account found in the cache, return true
-            return true;
-        }
-
-        // Account not found in the cache, retrieve it from the database
-        account = webApiDatabase.Accounts.FirstOrDefault(x => x.ApiKey.ToString() == apiKey);
-
-        if (account != null)
-        {
-            // Add the account to the cache with a sliding expiration of 30 minutes
-            memoryCache.Set(apiKey, account, TimeSpan.FromMinutes(30));
-            return true;
-        }
-
-        return false;
+         var account  = accountService.GetAccountByApiKeyAsync(apiKey,httpRequest);
+            if(account == null)
+                return false;
+        return true;
     }
 }
 
 public interface IApiKeyValidator
 {
-    bool IsValid(string apiKey);
+    bool IsValid(string apiKey, HttpRequest httpRequest);
 }
