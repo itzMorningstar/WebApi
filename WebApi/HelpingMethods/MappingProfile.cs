@@ -22,7 +22,8 @@ namespace WebApi.HelpingMethods
                 .ForMember(dest => dest.ProfilePicturePath, opt => opt.Ignore());
 
             CreateMap<Employee, EmployeeDto>()
-                .ForMember(dest => dest.Sallery, opt => opt.MapFrom(src => src.Sallery.SalleryAmount));           
+                .ForMember(dest => dest.Sallery, opt => opt.MapFrom(src => src.Sallery.SalleryAmount))
+                .ForMember(dest => dest.Department ,opt  => opt.MapFrom(src => src.Department.ToString()));
         }
     }
 }

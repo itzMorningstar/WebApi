@@ -27,12 +27,18 @@ namespace ServicesLibrary.EmployeesServices
         }
         public List<Employee> GetAll()
         {
-            return webApiDatabase.Employees.Include(x => x.Sallery).ToList();
+            return webApiDatabase.Employees.Include(x => x.Sallery).OrderByDescending(x => x.CreatedOn).ToList();
 
         }
         public Employee Get(int id)
         {
             return genericRepository.GetById(id);
+
+        }
+
+        public Employee GetWithSallery(int id)
+        {
+            return webApiDatabase.Employees.Where(x => x.Id == id).Include(x=> x.Sallery).FirstOrDefault();
 
         }
 

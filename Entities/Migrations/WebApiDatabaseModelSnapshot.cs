@@ -108,7 +108,7 @@ namespace Entities.Migrations
 
                     b.HasKey("AccountGuid");
 
-                    b.ToTable("Accounts");
+                    b.ToTable("Accounts", (string)null);
                 });
 
             modelBuilder.Entity("Entities.ActivityLogging.ActivityLog", b =>
@@ -152,7 +152,7 @@ namespace Entities.Migrations
 
                     b.HasIndex("TypeId");
 
-                    b.ToTable("ActivityLogs");
+                    b.ToTable("ActivityLogs", (string)null);
                 });
 
             modelBuilder.Entity("Entities.ActivityLogging.ActivityType", b =>
@@ -175,7 +175,7 @@ namespace Entities.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ActivityType");
+                    b.ToTable("ActivityType", (string)null);
                 });
 
             modelBuilder.Entity("Entities.DeviceRegistrationEntity.DeviceRegisterConnection", b =>
@@ -205,7 +205,7 @@ namespace Entities.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DeviceRegisterConnections");
+                    b.ToTable("DeviceRegisterConnections", (string)null);
                 });
 
             modelBuilder.Entity("Entities.EmployeesEntities.Employee", b =>
@@ -241,7 +241,7 @@ namespace Entities.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Employees");
+                    b.ToTable("Employees", (string)null);
                 });
 
             modelBuilder.Entity("Entities.EmployeesEntities.Sallery", b =>
@@ -269,7 +269,7 @@ namespace Entities.Migrations
                     b.HasIndex("EmployeeId")
                         .IsUnique();
 
-                    b.ToTable("Sallery");
+                    b.ToTable("Sallery", (string)null);
                 });
 
             modelBuilder.Entity("Entities.SchoolManagement.Classroom", b =>
@@ -289,7 +289,7 @@ namespace Entities.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Classrooms");
+                    b.ToTable("Classrooms", (string)null);
                 });
 
             modelBuilder.Entity("Entities.SchoolManagement.Enrollment", b =>
@@ -315,7 +315,7 @@ namespace Entities.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("Enrollments");
+                    b.ToTable("Enrollments", (string)null);
                 });
 
             modelBuilder.Entity("Entities.SchoolManagement.Section", b =>
@@ -342,7 +342,7 @@ namespace Entities.Migrations
 
                     b.HasIndex("TeacherId");
 
-                    b.ToTable("Sections");
+                    b.ToTable("Sections", (string)null);
                 });
 
             modelBuilder.Entity("Entities.SchoolManagement.Student", b =>
@@ -374,7 +374,7 @@ namespace Entities.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Students");
+                    b.ToTable("Students", (string)null);
                 });
 
             modelBuilder.Entity("Entities.SchoolManagement.Teacher", b =>
@@ -403,7 +403,7 @@ namespace Entities.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Teachers");
+                    b.ToTable("Teachers", (string)null);
                 });
 
             modelBuilder.Entity("Entities.ActivityLogging.ActivityLog", b =>

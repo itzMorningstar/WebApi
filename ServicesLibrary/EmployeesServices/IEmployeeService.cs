@@ -7,6 +7,7 @@ namespace ServicesLibrary.EmployeesServices
         void Add(Employee employee);
         void Delete(int id);
         Employee Get(int id);
+        Employee GetWithSallery(int id);
         List<Employee> GetAll();
         void Update(Employee employee);
 

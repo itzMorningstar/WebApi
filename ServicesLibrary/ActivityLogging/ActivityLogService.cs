@@ -38,7 +38,7 @@ namespace ServicesLibrary.ActivityLogging
 
         public void Add(string description, int type, string username,string? accountGuid, HttpRequest httpRequest)
         {
-            new ActivityLog
+            var activity = new ActivityLog
             {
                 Description = description,
                 Timestamp = DateTime.Now,
@@ -48,6 +48,8 @@ namespace ServicesLibrary.ActivityLogging
                 UserAgent = httpRequest.Headers["User-Agent"],
                 TypeId = 5,
             };
+            genericRepository.Add(activity);
+
         }
     }
 }
