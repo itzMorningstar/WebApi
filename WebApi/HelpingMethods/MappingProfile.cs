@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Entities.ActivityLogging;
 using Entities.EmployeesEntities;
 using Entities.SchoolManagement;
 using System;
@@ -24,6 +25,9 @@ namespace WebApi.HelpingMethods
             CreateMap<Employee, EmployeeDto>()
                 .ForMember(dest => dest.Sallery, opt => opt.MapFrom(src => src.Sallery.SalleryAmount))
                 .ForMember(dest => dest.Department ,opt  => opt.MapFrom(src => src.Department.ToString()));
+
+            CreateMap<ActivityLog, ActivityLogDto>();
+
         }
     }
 }

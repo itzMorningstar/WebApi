@@ -42,11 +42,6 @@ namespace WebApi.Controllers
             var result = employeeService.GetAll();
             if (result.Count() == 0)
                 return NotFound("No employees were found.");
-            var asSpan = CollectionsMarshal.AsSpan(result);
-            for (int i = 0; i < asSpan.Length; i++)
-            {
-                var item = asSpan[i];
-            }
             var employees = mapper.Map<List<EmployeeDto>>(result);
             var response = new ResponseModel();
             response.Data = employees;

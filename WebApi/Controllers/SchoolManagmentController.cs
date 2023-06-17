@@ -109,11 +109,12 @@ namespace WebApi.Controllers
 
             string? username = usernameProperty.GetValue(model) as string;
             if (username == null) return null;
+            username = username.Replace(" ", "");
 
             var fileName = Guid.NewGuid().ToString() + Path.GetExtension(profilePic.FileName);
 
             var folderPath = Path.Combine(folderName, username);
-
+                        
             var completePath =  Path.Combine(webHostEnvironment.ContentRootPath +"/"+ folderPath);
             if (!Directory.Exists(completePath))
             {
