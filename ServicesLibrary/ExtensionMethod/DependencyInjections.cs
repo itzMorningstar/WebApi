@@ -18,8 +18,10 @@ namespace ServicesLibrary.ExtensionMethod
     {
         public static IServiceCollection ImplementPersistence(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
-                b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)), ServiceLifetime.Transient);
+            //  No need for this becuase we are configuring our db context in the main web project 
+
+            //services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
+            //    b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)), ServiceLifetime.Transient);
 
             services.AddScoped<IDeviceManager, DeviceManager>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));

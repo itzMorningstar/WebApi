@@ -1,5 +1,6 @@
 ﻿using Entities.ActivityLogging;
 using Microsoft.AspNetCore.Http;
+using ServicesLibrary.ActivityLogging.Models;
 
 namespace ServicesLibrary.ActivityLogging
 {
@@ -8,6 +9,6 @@ namespace ServicesLibrary.ActivityLogging
         void Add(ActivityLog ActivityLog);
         void Add(string description,  int type, string username, string? accountGuid, HttpRequest httpRequest);
         ActivityLog Get(int id);
-        List<ActivityLog> GetAll();
+        ActivityLogListVM GetAll(int page =1,int pageSize =10);
     }
 }

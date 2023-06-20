@@ -22,14 +22,12 @@ namespace WebApi.Controllers
 
         [HttpGet]
         [Route("getactivitylogs")]
-        public async Task<IActionResult> GetActivityLogs()
+        public async Task<IActionResult> GetActivityLogs(int pageNumber, int pageSize)
         {
-            var result = activityLogService.GetAll();
-            if (result.Count() == 0)
-                return NotFound("No activity logs were found.");
-            var activityLogs = mapper.Map<List<ActivityLogDto>>(result);
+            var result = activityLogService.GetAll(pageNumber,pageSize);
+            
             var response = new ResponseModel();
-            response.Data = activityLogs;
+            response.Data = result;
             return Ok(response);
         }
     }

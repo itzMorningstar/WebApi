@@ -3,6 +3,7 @@ using Entities.Accounts;
 using Entities.ActivityLogging;
 using Entities.DeviceRegistrationEntity;
 using Microsoft.AspNetCore.Http;
+using ServicesLibrary.ActivityLogging.Models;
 using ServicesLibrary.GenericRepositories;
 using System;
 using System.Collections.Generic;
@@ -22,9 +23,23 @@ namespace ServicesLibrary.ActivityLogging
             this.genericRepository = genericRepository;
             this.webApiDatabase = webApiDatabase;
         }
-        public List<ActivityLog> GetAll()
+        public ActivityLogListVM GetAll(int page = 1, int pageSize = 10)
         {
-            return webApiDatabase.ActivityLogs.OrderByDescending(x => x.Timestamp).ToList();
+            var activites = webApiDatabase.ActivityLogs.OrderByDescending(x => x.Timestamp);
+
+            var totalCount = activites.Count();
+
+            var startIndex = (page -1) * pageSize;
+
+            var result = activites.Skip(startIndex).Take(pageSize).OrderByDescending(s => s.Timestamp).ToList();
+
+            return new ActivityLogListVM
+            {
+                TotalCount = totalCount,
+                PageNumber = page,
+                PageSize = pageSize,
+                ActivityLogs = result
+            };
 
         }
         public ActivityLog Get(int id)
