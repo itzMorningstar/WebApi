@@ -3,7 +3,6 @@ using Entities;
 using Entities.ActivityLogging;
 using Entities.EmployeesEntities;
 using Entities.Enums;
-using Entities.Migrations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ServicesLibrary.AccountServices;
@@ -77,7 +76,7 @@ namespace WebApi.Controllers
             return CreatedAtAction(nameof(AddEmployee), new { id = employee.Id }, employee);
         }
 
-
+         
         [HttpGet]
         [Route("{id}")]
         public async Task<ActionResult> GetEmployeeById(int id)

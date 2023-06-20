@@ -11,10 +11,10 @@ namespace ServicesLibrary.SchoolManagementServices.StudentServices
 {
     public class StudentService : IStudentService
     {
-        private readonly WebApiDatabase webApiDatabase;
+        private readonly ApplicationDbContext webApiDatabase;
         private readonly IGenericRepository<Student> genericRepository;
 
-        public StudentService(WebApiDatabase webApiDatabase,IGenericRepository<Student> genericRepository)
+        public StudentService(ApplicationDbContext webApiDatabase,IGenericRepository<Student> genericRepository)
         {
             this.webApiDatabase = webApiDatabase;
             this.genericRepository = genericRepository;

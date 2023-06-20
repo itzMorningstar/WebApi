@@ -16,10 +16,10 @@ namespace ServicesLibrary.EmployeesServices
     public class EmployeeService : IEmployeeService
     {
         private readonly IGenericRepository<Employee> genericRepository;
-        private readonly WebApiDatabase webApiDatabase;
+        private readonly ApplicationDbContext webApiDatabase;
         private readonly IGenericRepository<Sallery> salleryRepository;
 
-        public EmployeeService(IGenericRepository<Employee> genericRepository, WebApiDatabase webApiDatabase,IGenericRepository<Sallery> salleryRepository)
+        public EmployeeService(IGenericRepository<Employee> genericRepository, ApplicationDbContext webApiDatabase,IGenericRepository<Sallery> salleryRepository)
         {
             this.genericRepository = genericRepository;
             this.webApiDatabase = webApiDatabase;

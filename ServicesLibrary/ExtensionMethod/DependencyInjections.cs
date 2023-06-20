@@ -18,8 +18,8 @@ namespace ServicesLibrary.ExtensionMethod
     {
         public static IServiceCollection ImplementPersistence(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<WebApiDatabase>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
-                b => b.MigrationsAssembly(typeof(WebApiDatabase).Assembly.FullName)), ServiceLifetime.Transient);
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
+                b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)), ServiceLifetime.Transient);
 
             services.AddScoped<IDeviceManager, DeviceManager>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));

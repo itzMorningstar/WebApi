@@ -1,7 +1,9 @@
 using AutoMapper;
+using DataLibrary.ApplicationDBContext;
 using Entities.DeviceRegistrationEntity;
 using Google;
 using Microsoft.AspNetCore.Mvc.Versioning;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
@@ -14,8 +16,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<WebApiDatabase>(options =>
-    options.UseSqlServer(connectionString));
+//builder.Services.AddDbContext<applicationdbcontext>(options =>
+//    options.UseSqlServer(connectionString));
+
+builder.Services.AddDbContext<ApplicationDbContext>(o => o.UseSqlServer(connectionString));
 builder.Services.AddControllers();
 builder.Services.AddCors();
 

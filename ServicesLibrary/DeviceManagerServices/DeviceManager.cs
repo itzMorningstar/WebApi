@@ -10,9 +10,9 @@ namespace ServicesLibrary
 {
     public class DeviceManager : IDeviceManager
     {
-        private readonly WebApiDatabase registeredDeviceContext;
+        private readonly ApplicationDbContext registeredDeviceContext;
 
-        public DeviceManager(WebApiDatabase registeredDeviceContext)
+        public DeviceManager(ApplicationDbContext registeredDeviceContext)
         {
             this.registeredDeviceContext = registeredDeviceContext;
         }

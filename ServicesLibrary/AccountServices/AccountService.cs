@@ -16,9 +16,9 @@ namespace ServicesLibrary.AccountServices
     {
         private readonly IMemoryCache memoryCache;
         private readonly IGenericRepository<Account> accountRepository;
-        private readonly WebApiDatabase webApiDatabase;
+        private readonly ApplicationDbContext webApiDatabase;
 
-        public AccountService(IMemoryCache memoryCache, IGenericRepository<Account> accountRepository ,WebApiDatabase webApiDatabase)
+        public AccountService(IMemoryCache memoryCache, IGenericRepository<Account> accountRepository ,ApplicationDbContext webApiDatabase)
         {
             this.memoryCache = memoryCache;
             this.accountRepository = accountRepository;

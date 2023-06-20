@@ -10,9 +10,9 @@ namespace ServicesLibrary.GenericRepositories
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        private readonly WebApiDatabase _context;
+        private readonly ApplicationDbContext _context;
 
-        public GenericRepository(WebApiDatabase context)
+        public GenericRepository(ApplicationDbContext context)
         {
             _context = context;
         }

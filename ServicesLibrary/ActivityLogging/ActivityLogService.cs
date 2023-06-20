@@ -1,4 +1,5 @@
-﻿using Entities.Accounts;
+﻿global using DataLibrary.ApplicationDBContext;
+using Entities.Accounts;
 using Entities.ActivityLogging;
 using Entities.DeviceRegistrationEntity;
 using Microsoft.AspNetCore.Http;
@@ -14,16 +15,16 @@ namespace ServicesLibrary.ActivityLogging
     public class ActivityLogService : IActivityLogService
     {
         private readonly IGenericRepository<ActivityLog> genericRepository;
-        private readonly WebApiDatabase webApiDatabase;
+        private readonly ApplicationDbContext webApiDatabase;
 
-        public ActivityLogService(IGenericRepository<ActivityLog> genericRepository, WebApiDatabase webApiDatabase)
+        public ActivityLogService(IGenericRepository<ActivityLog> genericRepository, ApplicationDbContext webApiDatabase)
         {
             this.genericRepository = genericRepository;
             this.webApiDatabase = webApiDatabase;
         }
         public List<ActivityLog> GetAll()
         {
-            return webApiDatabase.ActivityLogs.ToList();
+            return webApiDatabase.ActivityLogs.OrderByDescending(x => x.Timestamp).ToList();
 
         }
         public ActivityLog Get(int id)
