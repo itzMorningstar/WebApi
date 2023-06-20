@@ -2,6 +2,7 @@
 using Entities.ActivityLogging;
 using Entities.DeviceRegistrationEntity;
 using Entities.EmployeesEntities;
+using Entities.Logs;
 using Entities.SchoolManagement;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -36,5 +37,8 @@ namespace DataLibrary.ApplicationDBContext
         public DbSet<ActivityLog> ActivityLogs { get; set; }
         public DbSet<ActivityType> ActivityType { get; set; }
         public DbSet<Account> Accounts { get; set; }
+
+        public DbSet<Log> Logs { get; set; }
+
     }
 }

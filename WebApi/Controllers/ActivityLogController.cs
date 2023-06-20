@@ -22,7 +22,7 @@ namespace WebApi.Controllers
 
         [HttpGet]
         [Route("getactivitylogs")]
-        public async Task<IActionResult> GetActivityLogs(int pageNumber, int pageSize)
+        public async Task<IActionResult> GetActivityLogs(int pageNumber =1, int pageSize =10)
         {
             var result = activityLogService.GetAll(pageNumber,pageSize);
             

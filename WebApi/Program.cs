@@ -1,13 +1,18 @@
 using AutoMapper;
 using DataLibrary.ApplicationDBContext;
 using Entities.DeviceRegistrationEntity;
+using Entities.Logs;
 using Google;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using ServicesLibrary;
 using ServicesLibrary.ExtensionMethod;
+using ServicesLibrary.GenericRepositories;
+using ServicesLibrary.LogServices;
+using ServicesLibrary.ServicesLocator;
 using System.Reflection;
 using System.Web.Http;
 using WebApi.HelpingMethods;
@@ -84,6 +89,15 @@ builder.Services.SchoolServicesProvider();
  builder.Services.EmployeeServiceProvider();
 
 
+// this is how i can configure the dependency injection for the static classes using the service locator only use this if you realy have to use a static class
+//var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+//    .UseSqlServer("YourConnectionString")
+//    .Options;
+
+//var dbContext = new ApplicationDbContext(options);
+//var logRepository = new GenericRepository<Log>(dbContext);
+//var loggingService = new LogService(dbContext, logRepository);
+//ServiceLocator.RegisteredLogingService(loggingService);
 
 
 var app = builder.Build();
