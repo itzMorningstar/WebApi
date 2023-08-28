@@ -3,6 +3,7 @@ using Entities;
 using Entities.ActivityLogging;
 using Entities.EmployeesEntities;
 using Entities.Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ServicesLibrary.AccountServices;
@@ -17,7 +18,7 @@ namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [ApiKey]
+    [Authorize]
     public class EmployeesController : ControllerBase
     {
         private readonly IEmployeeService employeeService;

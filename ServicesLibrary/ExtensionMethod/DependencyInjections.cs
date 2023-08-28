@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ServicesLibrary.AccountServices;
 using ServicesLibrary.ActivityLogging;
+using ServicesLibrary.Common;
 using ServicesLibrary.GenericRepositories;
 using ServicesLibrary.HttpClientServices;
 using ServicesLibrary.LogServices;
@@ -31,6 +32,7 @@ namespace ServicesLibrary.ExtensionMethod
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<ILogService, LogService>();
             services.AddScoped<IWebRequestHelper, WebRequestHelper>();
+            services.AddScoped<IGeneralService, GeneralService>();
             //services.AddScoped<IDeviceManager>(provider => provider.GetService<DeviceManager>());
 
             return services;

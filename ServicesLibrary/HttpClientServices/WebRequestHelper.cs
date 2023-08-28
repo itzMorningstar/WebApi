@@ -22,8 +22,8 @@ namespace ServicesLibrary.HttpClientServices
 
         public async Task<object> GetRequestAsync(string url, Dictionary<string, string> headers)
         {
-            using (var client = new HttpClient())
-            {
+           using var client = new HttpClient();
+            
                 foreach (var header in headers)
                 {
                     client.DefaultRequestHeaders.Add(header.Key, header.Value);
@@ -48,7 +48,7 @@ namespace ServicesLibrary.HttpClientServices
                     logService.LogError("JSON deserialization failed", ex);
                     throw;
                 }
-            }
+            
         }
 
     }

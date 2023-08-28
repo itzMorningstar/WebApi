@@ -11,5 +11,12 @@ namespace ServicesLibrary.AccountServices
 
         void updateAccount(Account account);
 
+        Account? GetAccountByUsername(string username);
+        Account? GetAccountByUsernameAndPassword(string username , string password);
+
+        void AddAccount(Account account);
+
+      bool  CheckPasswordAsync(Account account, string password);
+
     }
 }

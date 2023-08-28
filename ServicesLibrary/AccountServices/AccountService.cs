@@ -2,6 +2,7 @@
 using Entities.DeviceRegistrationEntity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Memory;
+using NuGet.Protocol;
 using ServicesLibrary.GenericRepositories;
 using System;
 using System.Collections.Generic;
@@ -92,6 +93,27 @@ namespace ServicesLibrary.AccountServices
             }
 
             return string.Empty;
+        }
+
+        public Account? GetAccountByUsername(string username)
+        {
+           return webApiDatabase.Accounts.Where(a => a.Username == username).FirstOrDefault();
+            
+        }
+
+        public Account? GetAccountByUsernameAndPassword(string username, string password)
+        {
+            return webApiDatabase.Accounts.Where(a => a.Username == username && a.Password == password).FirstOrDefault();
+        }
+
+        public void AddAccount(Account account)
+        {
+            accountRepository.Add(account);
+        }
+
+        public bool CheckPasswordAsync(Account account, string password)
+        {
+            return webApiDatabase.Accounts.Where(a => a.Username == account.Username && a.Password == password).Any();
         }
     }
 }

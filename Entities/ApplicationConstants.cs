@@ -8,6 +8,7 @@ namespace Entities
 {
     public static class ApplicationConstants
     {
+        public const string UserId = "UserId";
         public const string ApiKeyHeaderName = "X-API-Key";
 
     }
